@@ -109,12 +109,12 @@ class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("manager:tasktype-list.html")
 
 
-class ManufacturerUpdateView(LoginRequiredMixin, generic.UpdateView):
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = TaskType
     fields = "__all__"
     success_url = reverse_lazy("manager:tasktype-list.html")
 
 
-class ManufacturerDeleteView(LoginRequiredMixin, generic.DeleteView):
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     success_url = reverse_lazy("manager:tasktype-list.html")
