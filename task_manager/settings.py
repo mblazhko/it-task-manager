@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from django.urls import reverse
+
 from manager.context_processors import cfg_assets_root
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -74,6 +76,10 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+LOGIN_REDIRECT_URL = "/"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
