@@ -20,10 +20,6 @@ class TaskForm(forms.ModelForm):
 class WorkerCreationForm(UserCreationForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all())
 
-    def __init__(self, *args, **kwargs) -> None:
-        super(WorkerCreationForm, self).__init__(*args, **kwargs)
-        self.fields["position"].widget = forms.RadioSelect()
-
     class Meta(UserCreationForm.Meta):
         model = Worker
         fields = UserCreationForm.Meta.fields + (
