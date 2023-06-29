@@ -14,7 +14,9 @@ class Position(models.Model):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True, blank=True)
+    position = models.ForeignKey(
+        Position, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "worker"
@@ -36,20 +38,22 @@ class TaskType(models.Model):
 
 class Task(models.Model):
     PRIORITY_CHOICES = (
-        ('low', 'Low'),
-        ('medium', 'Medium'),
-        ('high', 'High'),
-        ('urgent', 'Urgent'),
-        ('critical', 'Critical'),
+        ("low", "Low"),
+        ("medium", "Medium"),
+        ("high", "High"),
+        ("urgent", "Urgent"),
+        ("critical", "Critical"),
     )
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     deadline = models.DateTimeField()
-    is_complete = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=15, choices=PRIORITY_CHOICES)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
-    assignees = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="tasks")
+    assignees = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="tasks"
+    )
 
     class Meta:
         ordering = ["-priority", "-deadline"]

@@ -2,8 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
-from manager.forms import TaskForm, WorkerCreationForm, TaskSearchForm, WorkerSearchForm, PositionSearchForm, \
-    TaskTypeSearchForm
+from manager.forms import (
+    TaskForm,
+    WorkerCreationForm,
+    TaskSearchForm,
+    WorkerSearchForm,
+    PositionSearchForm,
+    TaskTypeSearchForm,
+)
 from manager.models import Worker, Task, TaskType, Position
 
 
@@ -12,9 +18,11 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context['num_workers'] = Worker.objects.count()
-        context['num_tasks'] = Task.objects.count()
-        context['num_of_done_tasks'] = Task.objects.filter(is_done=True).count()
+        context["num_workers"] = Worker.objects.count()
+        context["num_tasks"] = Task.objects.count()
+        context["num_of_done_tasks"] = Task.objects.filter(
+            is_completed=True
+        ).count()
         return context
 
 
@@ -37,11 +45,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
-
-        return self.queryset
+            name = form.cleaned_data.get("name")
+            if name is not None:
+                queryset = Task.objects.filter(name__icontains=name)
+            else:
+                queryset = Task.objects.all()
+            return queryset
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -104,7 +113,7 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = Task
+    model = Worker
     success_url = reverse_lazy("manager:worker_list")
 
 

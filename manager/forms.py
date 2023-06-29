@@ -1,10 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
 from django.db.models import Q, QuerySet
 
-from manager.models import Worker, Task, Position, TaskType
+from manager.models import Worker, Task, Position
 
 
 class TaskForm(forms.ModelForm):
@@ -23,7 +22,7 @@ class WorkerCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs) -> None:
         super(WorkerCreationForm, self).__init__(*args, **kwargs)
-        self.fields['position'].widget = forms.RadioSelect()
+        self.fields["position"].widget = forms.RadioSelect()
 
     class Meta(UserCreationForm.Meta):
         model = Worker
@@ -38,20 +37,22 @@ class WorkerSearchForm(forms.Form):
     keyword = forms.CharField(
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Are you looking for somebody?"}),
+        widget=forms.TextInput(
+            attrs={"placeholder": "Are you looking for somebody?"}
+        ),
     )
 
     def search(self) -> QuerySet:
-        keyword = self.cleaned_data.get('keyword')
+        keyword = self.cleaned_data.get("keyword")
 
         workers = Worker.objects.all()
 
         if keyword:
             workers = workers.filter(
-                Q(username__icontains=keyword) |
-                Q(first_name__icontains=keyword) |
-                Q(last_name__icontains=keyword) |
-                Q(position__icontains=keyword)
+                Q(username__icontains=keyword)
+                | Q(first_name__icontains=keyword)
+                | Q(last_name__icontains=keyword)
+                | Q(position__icontains=keyword)
             )
 
         return workers
@@ -65,7 +66,7 @@ class TaskSearchForm(forms.Form):
     )
 
     def search(self) -> QuerySet:
-        name = self.cleaned_data.get('name')
+        name = self.cleaned_data.get("name")
 
         tasks = Task.objects.all()
 
@@ -87,5 +88,7 @@ class TaskTypeSearchForm(forms.Form):
     name = forms.CharField(
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Looking for task type?"}),
+        widget=forms.TextInput(
+            attrs={"placeholder": "Looking for task type?"}
+        ),
     )
