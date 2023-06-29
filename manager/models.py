@@ -50,9 +50,9 @@ class Task(models.Model):
     deadline = models.DateTimeField()
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=15, choices=PRIORITY_CHOICES)
-    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
+    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
     assignees = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="tasks"
+        settings.AUTH_USER_MODEL, related_name="assignees"
     )
 
     class Meta:
