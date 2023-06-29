@@ -128,8 +128,9 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
         context = super(PositionListView, self).get_context_data(**kwargs)
 
         name = self.request.GET.get("name", "")
-
+        position = self.request.GET.get("position")
         context["search_form"] = PositionSearchForm(initial={"name": name})
+        context["num_of_people_in_position"] = Worker.objects.filter(position=position).count()
 
         return context
 
