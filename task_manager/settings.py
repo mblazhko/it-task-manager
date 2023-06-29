@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from manager.context_processors import cfg_assets_root
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ASSETS_ROOT = "/static/assets"
 
 # Application definition
 
@@ -64,10 +67,15 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "manager.context_processors.cfg_assets_root",
             ],
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = "task_manager.wsgi.application"
 
