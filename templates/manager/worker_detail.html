@@ -14,7 +14,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                {{ request.user.username }}
+                {{ worker.first_name }} {{ worker.last_name }}
               </h5>
             </div>
           </div>
@@ -43,7 +43,7 @@
             <div class="card-body p-3">
               <hr class="horizontal gray-light my-3">
               <ul class="list-group">
-                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name: </strong>{{ worker.first_name }} {{ worker.last_name }}</li>
+                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Username: </strong>{{ worker.username }}</li>
                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Email: </strong>{{ worker.email }}</li>
                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Position: </strong> &nbsp;
                   {% if worker.position %}
