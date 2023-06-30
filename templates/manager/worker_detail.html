@@ -70,7 +70,14 @@
             <div class="card-body p-3">
               <ul class="list-group">
                 {% for task in worker.assignees.all %}
-                  <a href="{% url "manager:task-detail" pk=task.id %}">{{ task.name }}</a>
+                  <a href="{% url "manager:task-detail" pk=task.id %}">
+                    {{ task.name }}
+                    {% if task.is_completed %}
+                      (completed)
+                    {% else %}
+                      (not completed)
+                    {% endif %}
+                  </a>
                 </li>
                 {% endfor %}
               </ul>
