@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h6><a class="btn btn-primary" href="{% url "manager:position-create" %}">Add new position</a></h6>
+    {% if position_list %}
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class=" row card-header pb-0">
+              <h6>Positions</h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Employees in the position</th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for position in position_list %}
+                      <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ position.name }}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        {{ position.workers.all.count }}
+                      </td>
+                      <td class="align-middle">
+                        <a href="{% url "manager:position-delete" pk=position.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
+                          Delete
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <h6>There is nothing according to your request</h6>
+    {% endif %}
+{% endblock %}
