@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -78,7 +79,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     template_name = "manager/worker_list.html"
     paginate_by = 10
-    queryset = Worker.objects.all()  # Specify the initial queryset
+    queryset = Worker.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,7 +93,12 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         if form.is_valid():
             keyword = form.cleaned_data["keyword"]
             if keyword:
-                queryset = queryset.filter(name__icontains=keyword)
+                queryset = queryset.filter(
+                    Q(username__icontains=keyword)
+                    | Q(first_name__icontains=keyword)
+                    | Q(last_name__icontains=keyword)
+                    | Q(position__name__icontains=keyword)
+                )
         return queryset
 
 
