@@ -48,7 +48,6 @@ class WorkerSearchForm(forms.Form):
                 Q(username__icontains=keyword)
                 | Q(first_name__icontains=keyword)
                 | Q(last_name__icontains=keyword)
-                | Q(position__icontains=keyword)
             )
 
         return workers
