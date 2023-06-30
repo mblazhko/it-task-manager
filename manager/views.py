@@ -97,7 +97,6 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
                     Q(username__icontains=keyword)
                     | Q(first_name__icontains=keyword)
                     | Q(last_name__icontains=keyword)
-                    | Q(position__name__icontains=keyword)
                 )
         return queryset
 
