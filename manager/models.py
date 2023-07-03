@@ -60,3 +60,31 @@ class Task(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.priority})"
+
+
+class Project(models.Model):
+    STATUS_CHOICES = (
+        ("working", "Working"),
+        ("complete", "Complete"),
+        ("canceled", "Canceled"),
+    )
+
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
+    tasks = models.ManyToManyField(Task, related_name="tasks")
+
+    class Meta:
+        ordering = ("name", "status")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    projects = models.ManyToManyField(Project, related_name="projects")
+    members = models.ManyToManyField(Worker, related_name="members")
+
+    def __str__(self) -> str:
+        return self.name
