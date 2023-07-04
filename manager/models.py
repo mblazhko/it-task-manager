@@ -72,7 +72,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
-    tasks = models.ManyToManyField(Task, related_name="tasks")
+    tasks = models.ManyToManyField(Task, related_name="projects")
 
     class Meta:
         ordering = ("name", "status")
