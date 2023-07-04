@@ -36,6 +36,25 @@ class TaskType(models.Model):
         return self.name
 
 
+class Project(models.Model):
+    STATUS_CHOICES = (
+        ("working", "Working"),
+        ("complete", "Complete"),
+        ("canceled", "Canceled"),
+    )
+
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
+    tasks = models.ManyToManyField(Task, related_name="projects")
+
+    class Meta:
+        ordering = ("name", "status")
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class Task(models.Model):
     PRIORITY_CHOICES = (
         ("low", "Low"),
@@ -54,6 +73,7 @@ class Task(models.Model):
     assignees = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="assignees"
     )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
 
     class Meta:
         ordering = ["-priority", "-deadline"]
@@ -61,24 +81,6 @@ class Task(models.Model):
     def __str__(self) -> str:
         return f"{self.name} ({self.priority})"
 
-
-class Project(models.Model):
-    STATUS_CHOICES = (
-        ("working", "Working"),
-        ("complete", "Complete"),
-        ("canceled", "Canceled"),
-    )
-
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
-    tasks = models.ManyToManyField(Task, related_name="projects")
-
-    class Meta:
-        ordering = ("name", "status")
-
-    def __str__(self) -> str:
-        return self.name
 
 
 class Team(models.Model):
