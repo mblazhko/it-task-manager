@@ -38,7 +38,6 @@ class TaskType(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
-    projects = models.ManyToManyField(Project, related_name="projects")
     members = models.ManyToManyField(Worker, related_name="members")
 
     def __str__(self) -> str:
