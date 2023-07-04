@@ -11,7 +11,7 @@ from manager.forms import (
     PositionSearchForm,
     TaskTypeSearchForm,
 )
-from manager.models import Worker, Task, TaskType, Position
+from manager.models import Worker, Task, TaskType, Position, Project, Team
 
 
 class IndexView(LoginRequiredMixin, generic.TemplateView):
@@ -24,6 +24,17 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
         context["num_of_done_tasks"] = Task.objects.filter(
             is_completed=True
         ).count()
+        context["project_list"] = Project.objects.all()
+
+        project_tasks_completed = Task.objects.filter(projects__in=context["project_list"], is_completed=True)
+        project_tasks_total = Task.objects.filter(projects__in=context["project_list"])
+        num_completed_tasks = project_tasks_total.count()
+        if num_completed_tasks == 0:
+            context["percent"] = 0
+        else:
+            percent_completed = round(project_tasks_completed.count() / project_tasks_total.count() * 100)
+            context["percent"] = percent_completed
+
         return context
 
 
@@ -209,3 +220,21 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     success_url = reverse_lazy("manager:task-type-list.html")
+
+
+class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Project
+
+
+class ProjectListView(LoginRequiredMixin, generic.ListView):
+    model = Project
+    queryset = Project.objects.all()
+
+
+class TeamListView(LoginRequiredMixin, generic.ListView):
+    model = Team
+
+
+class TeamDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Team
+    queryset = Team.objects.all()
