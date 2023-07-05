@@ -20,6 +20,7 @@ from manager.views import (
     TaskTypeCreateView,
     TaskTypeUpdateView,
     TaskTypeDeleteView, ProjectDetailView, ProjectListView, ProjectCreateView, ProjectUpdateView, ProjectDeleteView,
+    TeamListView, TeamDetailView,
 )
 
 urlpatterns = [
@@ -96,6 +97,31 @@ urlpatterns = [
         "project/<int:pk>/delete/",
         ProjectDeleteView.as_view(),
         name="project-delete"
+    ),
+    path(
+        "teams/",
+        TeamListView.as_view(),
+        name="team-list"
+    ),
+    path(
+        "team/<int:pk>/",
+        TeamDetailView.as_view(),
+        name="team-detail"
+    ),
+    path(
+        "team/create/",
+        TeamCreateView.as_view(),
+        name="team-create"
+    ),
+    path(
+        "project/<int:pk>/update/",
+        TeamUpdateView.as_view(),
+        name="team-update"
+    ),
+    path(
+        "project/<int:pk>/delete/",
+        TeamDeleteView.as_view(),
+        name="team-delete"
     )
 ]
 
