@@ -24,16 +24,16 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
         context["num_of_done_tasks"] = Task.objects.filter(
             is_completed=True
         ).count()
-        context["project_list"] = Project.objects.all()
 
-        project_tasks_completed = Task.objects.filter(projects__in=context["project_list"], is_completed=True)
-        project_tasks_total = Task.objects.filter(projects__in=context["project_list"])
-        num_completed_tasks = project_tasks_total.count()
-        if num_completed_tasks == 0:
-            context["percent"] = 0
-        else:
-            percent_completed = round(project_tasks_completed.count() / project_tasks_total.count() * 100)
-            context["percent"] = percent_completed
+        context["project_list"] = Project.objects.all()
+        for project in context["project_list"]:
+            completed_tasks = project.tasks.filter(is_completed=True).count()
+            total_tasks = project.tasks.count()
+
+            if total_tasks > 0:
+                context["percent"] = round((completed_tasks / total_tasks) * 100)
+            else:
+                context["percent"] = 0
 
         return context
 
@@ -224,6 +224,15 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
     model = Project
+
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        pk = kwargs["object"].id
+        project = Project.objects.get(pk=pk)
+        context["completed_tasks"] = project.tasks.filter(is_completed=True)
+        context["uncompleted_tasks"] = project.tasks.filter(is_completed=False)
+
+        return context
 
 
 class ProjectListView(LoginRequiredMixin, generic.ListView):
