@@ -53,7 +53,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_CHOICES[0])
     team = models.ManyToManyField(Team, related_name="projects")
 
     class Meta:
