@@ -254,7 +254,7 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Project
-    success_url = reverse_lazy("manager:project-delete")
+    success_url = reverse_lazy("manager:project-list")
 
 
 class TeamListView(LoginRequiredMixin, generic.ListView):
@@ -264,3 +264,20 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team
     queryset = Team.objects.all()
+
+
+class TeamCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Team
+    form_class = TeamCreationForm
+    success_url = reverse_lazy("manager:team-list")
+
+
+class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Team
+    form_class = TeamCreationForm
+    success_url = reverse_lazy("manager:team-list")
+
+
+class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Team
+    success_url = reverse_lazy("manager:team-list")
