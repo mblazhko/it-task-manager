@@ -9,7 +9,7 @@ from manager.forms import (
     TaskSearchForm,
     WorkerSearchForm,
     PositionSearchForm,
-    TaskTypeSearchForm, ProjectCreationForm,
+    TaskTypeSearchForm, ProjectCreationForm, TeamCreationForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
