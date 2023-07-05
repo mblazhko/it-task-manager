@@ -9,7 +9,7 @@ from manager.forms import (
     TaskSearchForm,
     WorkerSearchForm,
     PositionSearchForm,
-    TaskTypeSearchForm,
+    TaskTypeSearchForm, ProjectCreationForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -238,6 +238,12 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
 class ProjectListView(LoginRequiredMixin, generic.ListView):
     model = Project
     queryset = Project.objects.all()
+
+
+class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Project
+    form_class = ProjectCreationForm
+    success_url = reverse_lazy("manager:project-list")
 
 
 class TeamListView(LoginRequiredMixin, generic.ListView):
