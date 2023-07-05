@@ -41,7 +41,7 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     template_name = "manager/task_list.html"
-    paginate_by = 10
+    paginate_by = 4
     queryset = Task.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -237,6 +237,7 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
 
 class ProjectListView(LoginRequiredMixin, generic.ListView):
     model = Project
+    paginate_by = 5
     queryset = Project.objects.all()
 
 
@@ -259,6 +260,7 @@ class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TeamListView(LoginRequiredMixin, generic.ListView):
     model = Team
+    paginate_by = 5
 
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
