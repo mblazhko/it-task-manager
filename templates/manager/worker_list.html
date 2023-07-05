@@ -8,7 +8,7 @@
 {% block content %}
 
     <div class="container-fluid py-4">
-      <h6><a class="btn btn-primary" href="{% url "manager:employee-create" %}">Add new worker</a></h6>
+      <h6><a class="btn btn-primary" href="{% url "manager:worker-create" %}">Add new worker</a></h6>
       <div class="row">
         <div class="col-12">
           <div class="card mb-4">
@@ -32,7 +32,7 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><a href="{% url "manager:employee-detail" pk=worker.id %}">{{ worker.first_name }} {{ worker.last_name }}</a></h6>
+                            <h6 class="mb-0 text-sm"><a href="{% url "manager:worker-detail" pk=worker.id %}">{{ worker.first_name }} {{ worker.last_name }}</a></h6>
                             <p class="text-xs text-secondary mb-0">{{ worker.email }}</p>
                           </div>
                         </div>
@@ -41,10 +41,10 @@
                         {{ worker.position }}
                       </td>
                       <td class="align-middle">
-                        <a href="{% url "manager:employee-update" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <a href="{% url "manager:worker-update" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           Edit |
                         </a>
-                        <a href="{% url "manager:employee-delete" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
+                        <a href="{% url "manager:worker-delete" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
                           Delete
                         </a>
                       </td>
