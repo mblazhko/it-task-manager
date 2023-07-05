@@ -54,7 +54,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="projects")
+    team = models.ManyToManyField(Team, related_name="projects")
 
     class Meta:
         ordering = ("name", "status")
