@@ -246,6 +246,12 @@ class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("manager:project-list")
 
 
+class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = TaskType
+    fields = ("status", "team")
+    success_url = reverse_lazy("manager:project-list")
+
+
 class TeamListView(LoginRequiredMixin, generic.ListView):
     model = Team
 
