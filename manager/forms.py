@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q, QuerySet
 
-from manager.models import Worker, Task, Position, Project
+from manager.models import Worker, Task, Position, Project, Team
 
 
 class TaskForm(forms.ModelForm):
@@ -31,7 +31,7 @@ class WorkerCreationForm(UserCreationForm):
 
 class ProjectCreationForm(forms.ModelForm):
     team = forms.ModelMultipleChoiceField(
-        queryset=get_user_model().objects.all(),
+        queryset=Team.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
 
