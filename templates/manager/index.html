@@ -98,7 +98,7 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Assigned team</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Assigned teams</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
                     </tr>
@@ -114,7 +114,11 @@
                           </div>
                         </td>
                         <td>
-                          <p class="text-sm font-weight-bold mb-0">{{ project.team.name }}</p>
+                          <p class="text-sm font-weight-bold mb-0">
+                            {% for team in project.team.all %}
+                              {{ team.name }}
+                            {% endfor %}
+                          </p>
                         </td>
                         <td>
                           <p class="text-sm font-weight-bold mb-0">{{ project.status }}</p>
