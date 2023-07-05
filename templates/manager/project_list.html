@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Billing {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container-fluid py-4">
+{#    <h6><a class="btn btn-primary" href="{% url "manager:project-create" %}">Add new project</a></h6>#}
+    <div class="row">
+      <div class="col-md-11 mt-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Projects</h6>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <ul class="list-group">
+              {% for project in project_list %}
+              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                <div class="d-flex flex-column">
+                  <h6 class="mb-3 text-sm"><a href="{% url "manager:project-detail" pk=project.id %}">{{ project.name }}</a></h6>
+                  <span class="mb-2 text-xs">Priority: <span class="text-dark ms-sm-2 font-weight-bold">{{ project.status }}</span></span>
+                </div>
+                <div class="ms-auto text-end">
+{#                  <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{% url "manager:project-delete" pk=task.id %}"><i class="far fa-trash-alt me-2"></i>Delete</a>#}
+{#                  <a class="btn btn-link text-dark px-3 mb-0" href="{% url "manager:project-update" pk=task.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>#}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
