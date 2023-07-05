@@ -21,6 +21,14 @@
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
                   <h6 class="mb-3 text-sm"><a href="{% url "manager:project-detail" pk=team.id %}">{{ team.name }}</a></h6>
+                  <span class="mb-2 text-xs">Projects:
+                    <span class="text-dark ms-sm-2 font-weight-bold">
+                      {% for project in team.projects.all %}
+                        <a href="{% url "manager:project-detail" pk=project.id %}">{{ project }}</a>
+                        {% if not forloop.last %},{% endif %}
+                      {% endfor %}
+                    </span>
+                  </span>
                   <span class="mb-2 text-xs">Members:
                     <span class="text-dark ms-sm-2 font-weight-bold">
                       {% for member in team.members.all %}
