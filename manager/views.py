@@ -252,6 +252,11 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("manager:project-list")
 
 
+class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Project
+    success_url = reverse_lazy("manager:project-delete")
+
+
 class TeamListView(LoginRequiredMixin, generic.ListView):
     model = Team
 
