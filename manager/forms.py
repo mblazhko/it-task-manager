@@ -35,8 +35,19 @@ class ProjectCreationForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = Project
+        fields = "__all__"
+
+
+class TeamCreationForm(forms.ModelForm):
+    members = forms.ModelMultipleChoiceField(
+        queryset=Worker.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+
+    class Meta:
+        model = Team
         fields = "__all__"
 
 
