@@ -109,3 +109,23 @@ class TaskTypeSearchForm(forms.Form):
             attrs={"placeholder": "Looking for task type?"}
         ),
     )
+
+
+class ProjectSearchForm(forms.Form):
+    name = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Looking for project?"}
+        ),
+    )
+
+
+class TeamSearchForm(forms.Form):
+    name = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Looking for team?"}
+        ),
+    )
