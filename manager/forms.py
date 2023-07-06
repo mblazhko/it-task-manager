@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.db.models import Q, QuerySet
 
 from manager.models import Worker, Task, Position, Project, Team
@@ -38,6 +39,14 @@ class ProjectCreationForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = "__all__"
+
+    def clean_status(self):
+        status = self.cleaned_data.get("status")
+
+        if self.instance.pk is None and status == "completed":
+            raise ValidationError("Status can't be set as 'completed' during project creation.")
+
+        return status
 
 
 class TeamCreationForm(forms.ModelForm):
