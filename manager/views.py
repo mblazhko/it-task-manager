@@ -25,15 +25,17 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
             is_completed=True
         ).count()
 
-        context["project_list"] = Project.objects.all()
-        for project in context["project_list"]:
+        project_list = Project.objects.all()
+        for project in project_list:
             completed_tasks = project.tasks.filter(is_completed=True).count()
             total_tasks = project.tasks.count()
 
             if total_tasks > 0:
-                context["percent"] = round((completed_tasks / total_tasks) * 100)
+                project.percent = round((completed_tasks / total_tasks) * 100)
             else:
-                context["percent"] = 0
+                project.percent = 0
+
+        context["project_list"] = project_list
 
         return context
 
