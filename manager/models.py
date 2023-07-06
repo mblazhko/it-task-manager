@@ -15,7 +15,11 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(
-        Position, on_delete=models.CASCADE, null=True, blank=True, related_name='workers'
+        Position,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="workers",
     )
 
     class Meta:
@@ -53,7 +57,9 @@ class Project(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_CHOICES[0])
+    status = models.CharField(
+        max_length=15, choices=STATUS_CHOICES, default=STATUS_CHOICES[0]
+    )
     team = models.ManyToManyField(Team, related_name="projects")
 
     class Meta:
@@ -77,11 +83,15 @@ class Task(models.Model):
     deadline = models.DateTimeField()
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=15, choices=PRIORITY_CHOICES)
-    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
+    task_type = models.ForeignKey(
+        TaskType, on_delete=models.CASCADE, related_name="tasks"
+    )
     assignees = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="assignees"
     )
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="tasks"
+    )
 
     class Meta:
         ordering = ["-priority", "-deadline"]
@@ -98,11 +108,13 @@ class Task(models.Model):
 
         if project:
             completed_tasks = project.tasks.filter(is_completed=True)
-            all_tasks_completed = completed_tasks.count() == project.tasks.count()
+            all_tasks_completed = (
+                completed_tasks.count() == project.tasks.count()
+            )
 
             if all_tasks_completed:
-                project.status = 'complete'
+                project.status = "complete"
             else:
-                project.status = 'working'
+                project.status = "working"
 
             project.save()

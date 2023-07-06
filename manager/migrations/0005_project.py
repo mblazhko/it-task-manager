@@ -36,7 +36,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "tasks",
-                    models.ManyToManyField(related_name="tasks", to="manager.task"),
+                    models.ManyToManyField(
+                        related_name="tasks", to="manager.task"
+                    ),
                 ),
             ],
         ),

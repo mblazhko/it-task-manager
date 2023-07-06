@@ -12,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="project",
             name="tasks",
-            field=models.ManyToManyField(related_name="projects", to="manager.task"),
+            field=models.ManyToManyField(
+                related_name="projects", to="manager.task"
+            ),
         ),
     ]

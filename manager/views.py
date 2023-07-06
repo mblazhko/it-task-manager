@@ -9,7 +9,10 @@ from manager.forms import (
     TaskSearchForm,
     WorkerSearchForm,
     PositionSearchForm,
-    TaskTypeSearchForm, ProjectCreationForm, TeamCreationForm, ProjectSearchForm,
+    TaskTypeSearchForm,
+    ProjectCreationForm,
+    TeamCreationForm,
+    ProjectSearchForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -148,7 +151,9 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
         name = self.request.GET.get("name", "")
         position = self.request.GET.get("position")
         context["search_form"] = PositionSearchForm(initial={"name": name})
-        context["num_of_people_in_position"] = Worker.objects.filter(position=position).count()
+        context["num_of_people_in_position"] = Worker.objects.filter(
+            position=position
+        ).count()
 
         return context
 

@@ -20,10 +20,13 @@ class TaskForm(forms.ModelForm):
     def clean_is_completed(self):
         is_completed = self.cleaned_data.get("is_completed")
 
-        if self.instance.pk is None and is_completed == True:
-            raise ValidationError("Status can't be set as 'completed' during task creation.")
+        if self.instance.pk is None and is_completed:
+            raise ValidationError(
+                "Status can't be set as 'completed' during task creation."
+            )
 
         return is_completed
+
 
 class WorkerCreationForm(UserCreationForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all())
@@ -51,7 +54,9 @@ class ProjectCreationForm(forms.ModelForm):
         status = self.cleaned_data.get("status")
 
         if self.instance.pk is None and status == "complete":
-            raise ValidationError("Status can't be set as 'completed' during project creation.")
+            raise ValidationError(
+                "Status can't be set as 'completed' during project creation."
+            )
 
         return status
 
@@ -131,9 +136,7 @@ class ProjectSearchForm(forms.Form):
     name = forms.CharField(
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Looking for project?"}
-        ),
+        widget=forms.TextInput(attrs={"placeholder": "Looking for project?"}),
     )
 
 
@@ -141,7 +144,5 @@ class TeamSearchForm(forms.Form):
     name = forms.CharField(
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Looking for team?"}
-        ),
+        widget=forms.TextInput(attrs={"placeholder": "Looking for team?"}),
     )
