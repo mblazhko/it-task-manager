@@ -88,3 +88,21 @@ class Task(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.priority})"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.update_project_status()
+
+    def update_project_status(self):
+        project = self.project
+
+        if project:
+            completed_tasks = project.tasks.filter(is_completed=True)
+            all_tasks_completed = completed_tasks.count() == project.tasks.count()
+
+            if all_tasks_completed:
+                project.status = 'complete'
+            else:
+                project.status = 'working'
+
+            project.save()
