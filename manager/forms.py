@@ -17,6 +17,13 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = "__all__"
 
+    def clean_is_completed(self):
+        is_completed = self.cleaned_data.get("is_completed")
+
+        if self.instance.pk is None and is_completed == True:
+            raise ValidationError("Status can't be set as 'completed' during task creation.")
+
+        return is_completed
 
 class WorkerCreationForm(UserCreationForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all())
