@@ -83,12 +83,12 @@ class TaskSearchForm(forms.Form):
     )
 
     def search(self) -> QuerySet:
-        name = self.cleaned_data.get("name")
+        keyword = self.cleaned_data.get("name")
 
         tasks = Task.objects.all()
 
-        if name:
-            tasks = tasks.filter(name=name)
+        if keyword:
+            tasks = tasks.filter(name__icontains=keyword)
 
         return tasks
 

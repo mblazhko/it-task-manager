@@ -57,9 +57,9 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
-            name = form.cleaned_data.get("name")
-            if name is not None:
-                queryset = Task.objects.filter(name__icontains=name)
+            keyword = form.cleaned_data.get("keyword")
+            if keyword is not None:
+                queryset = Task.objects.filter(name__icontains=keyword)
             else:
                 queryset = Task.objects.all()
             return queryset
