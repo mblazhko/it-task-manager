@@ -10,7 +10,7 @@
   <div class="container-fluid py-4">
     <h6><a class="btn btn-primary" href="{% url "manager:team-create" %}">Create new team</a></h6>
     <div class="row">
-      <div class="col-md-11 mt-4">
+      <div class="col-md-12 mt-4">
         <div class="card">
           <div class="card-header pb-0 px-3">
             <h6 class="mb-0">Teams</h6>
@@ -20,7 +20,7 @@
               {% for team in team_list %}
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm"><a href="{% url "manager:project-detail" pk=team.id %}">{{ team.name }}</a></h6>
+                  <h6 class="mb-3 text-sm">{{ team.name }}</h6>
                   <span class="mb-2 text-xs">Projects:
                     <span class="text-dark ms-sm-2 font-weight-bold">
                       {% for project in team.projects.all %}
@@ -49,8 +49,6 @@
         </div>
       </div>
     </div>
-
-    {% include "includes/footer.html" %}
 
   </div>
 
