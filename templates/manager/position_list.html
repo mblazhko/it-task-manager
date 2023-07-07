@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+  - Positions
+{% endblock %}
+
 {% block content %}
     <h6><a class="btn btn-primary" href="{% url "manager:position-create" %}">Add new position</a></h6>
     {% if position_list %}

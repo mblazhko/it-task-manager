@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 
+{% block title %}- {{ object|yesno:"Edit task,Create a new task" }}{% endblock %}
+
 {% block content %}
   <h1>{{ object|yesno:"Edit,Create" }} task</h1>
   <form action="" method="post" novalidate>
