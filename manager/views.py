@@ -25,7 +25,7 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
         context["num_workers"] = Worker.objects.count()
         context["num_of_projects"] = Project.objects.count()
         context["num_of_done_projects"] = Project.objects.filter(
-            status="complete"
+            status="completed"
         ).count()
 
         project_list = Project.objects.all()

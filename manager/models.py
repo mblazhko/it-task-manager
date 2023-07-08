@@ -51,7 +51,7 @@ class Team(models.Model):
 class Project(models.Model):
     STATUS_CHOICES = (
         ("working", "Working"),
-        ("complete", "Complete"),
+        ("completed", "Complete"),
         ("canceled", "Canceled"),
     )
 
@@ -113,8 +113,9 @@ class Task(models.Model):
             )
 
             if all_tasks_completed:
-                project.status = "complete"
+                project.status = "completed"
             else:
                 project.status = "working"
 
-            project.save().prefetch_related("tasks")
+            project.save()
+            project.refresh_from_db()
