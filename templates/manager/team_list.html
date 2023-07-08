@@ -19,7 +19,7 @@
             <ul class="list-group">
               {% for team in team_list %}
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                <div class="d-flex flex-column">
+                <div class="col-10 d-flex flex-column">
                   <h6 class="mb-3 text-sm">{{ team.name }}</h6>
                   <span class="mb-2 text-xs">Projects:
                     <span class="text-dark ms-sm-2 font-weight-bold">
@@ -38,7 +38,7 @@
                     </span>
                   </span>
                 </div>
-                <div class="ms-auto text-end">
+                <div class="col-2 ms-auto text-end">
                   <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{% url "manager:team-delete" pk=team.id %}"><i class="far fa-trash-alt me-2"></i>Delete</a>
                   <a class="btn btn-link text-dark px-3 mb-0" href="{% url "manager:team-update" pk=team.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
                 </div>
