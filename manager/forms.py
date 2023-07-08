@@ -53,7 +53,7 @@ class ProjectCreationForm(forms.ModelForm):
     def clean_status(self):
         status = self.cleaned_data.get("status")
 
-        if self.instance.pk is None and status == "complete":
+        if self.instance.pk is None and status == "completed":
             raise ValidationError(
                 "Status can't be set as 'completed' during project creation."
             )

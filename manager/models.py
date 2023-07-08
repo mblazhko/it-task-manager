@@ -51,7 +51,7 @@ class Team(models.Model):
 class Project(models.Model):
     STATUS_CHOICES = (
         ("working", "Working"),
-        ("completed", "Complete"),
+        ("completed", "Completed"),
         ("canceled", "Canceled"),
     )
 
