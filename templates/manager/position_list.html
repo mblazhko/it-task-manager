@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block content %}
+  <div class="container-fluid py-4">
     <h6><a class="btn btn-primary" href="{% url "manager:position-create" %}">Add new position</a></h6>
     {% if position_list %}
-      <div class="row mx-0 px-0">
-        <div class="col-12 px-0">
+      <div class="row">
+        <div class="col-md-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
               <h6>Positions</h6>
@@ -17,15 +18,19 @@
               <div class="table-responsive">
                 <table class="table align-items-center mb-0">
                   <thead>
-                    <tr>
-                      <th class="col-6 col-md-8 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position name</th>
-                      <th class="col-3 col-md-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Employees in the position</th>
-                      <th class="col-3 col-md-2 text-secondary opacity-7"></th>
-                    </tr>
+                  <tr>
+                    <th class="col-6 col-md-8 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      Position name
+                    </th>
+                    <th class="col-3 col-md-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                      Employees in the position
+                    </th>
+                    <th class="col-3 col-md-2 text-secondary opacity-7"></th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {% for position in position_list %}
-                      <tr>
+                  {% for position in position_list %}
+                    <tr>
                       <td>
                         {{ position.name }}
                       </td>
@@ -33,12 +38,14 @@
                         {{ position.workers.all.count }}
                       </td>
                       <td class="align-middle">
-                        <a href="{% url "manager:position-delete" pk=position.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
+                        <a href="{% url "manager:position-delete" pk=position.id %}"
+                           class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                           data-original-title="Delete user">
                           Delete
                         </a>
                       </td>
                     </tr>
-                    {% endfor %}
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -49,4 +56,5 @@
     {% else %}
       <h6>There is nothing according to your request</h6>
     {% endif %}
+  </div>
 {% endblock %}

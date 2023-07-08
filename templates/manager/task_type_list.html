@@ -3,45 +3,45 @@
 {% block title %}- All task types{% endblock %}
 
 {% block content %}
+  <div class="container-fluid py-4">
     {% if task_type_list %}
-
       <div class="row">
-        <div class="col-12">
-        <h6><a class="btn btn-primary" href="{% url "manager:task-type-create" %}">Add type of task</a></h6>
+        <div class="col-md-12">
+          <h6><a class="btn btn-primary" href="{% url "manager:task-type-create" %}">Add type of task</a></h6>
           <div class="card mb-4">
             <div class="card-header pb-0">
               <h6>Type of tasks</h6>
             </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
+            <div class="card-body pt-0 pb-2">
+              <div class="table-responsive">
                 <table class="table align-items-center mb-0">
                   <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tasks with this type</th>
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tasks with this
+                      type
+                    </th>
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {% for type in task_type_list %}
-                      <tr>
+                  {% for type in task_type_list %}
+                    <tr>
                       <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ type.name }}</h6>
-                          </div>
-                        </div>
+                          {{ type.name }}
                       </td>
                       <td>
                         {{ type.tasks.count }}
                       </td>
                       <td class="align-middle">
-                        <a href="{% url "manager:task-type-delete" pk=type.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
+                        <a href="{% url "manager:task-type-delete" pk=type.id %}"
+                           class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                           data-original-title="Delete user">
                           Delete
                         </a>
                       </td>
                     </tr>
-                    {% endfor %}
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -50,4 +50,5 @@
         </div>
       </div>
     {% endif %}
+  </div>
 {% endblock %}
