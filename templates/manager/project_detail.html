@@ -40,25 +40,38 @@
           <div class="card h-100">
             <div class="card-header pb-0 p-3">
               <div class="row">
+                <h6>Assigned tasks</h6>
               </div>
             </div>
             <div class="card-body p-3">
-              <div class="col-md-8 d-flex align-items-center">
-                  <h6 class="mb-0">Tasks to do</h6>
+              {% if project.tasks.all %}
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">To do</h6>
               </div>
-              <ul class="list-group">
-                {% for task in uncompleted_tasks %}
+                <ul class="list-group">
+                {% if uncompleted_tasks %}
+                  {% for task in uncompleted_tasks %}
                   <li class="list-group-item border-0 ps-0 text-sm"><a href="{% url "manager:task-detail" pk=task.id %}">{{ task }}</a></li>
                 {% endfor %}
+                {% else %}
+                  <p class="text-sm">Nothing to do</p>
+                {% endif %}
               </ul>
-               <div class="col-md-8 d-flex align-items-center mt-4">
-                  <h6 class="mb-0">Completed tasks</h6>
+                <div class="col-md-8 d-flex align-items-center mt-4">
+                  <h6 class="mb-0">Completed</h6>
                </div>
-              <ul class="list-group">
-                {% for task in completed_tasks %}
+                <ul class="list-group">
+                {% if completed_tasks %}
+                  {% for task in completed_tasks %}
                   <li class="list-group-item border-0 ps-0 text-sm"><a href="{% url "manager:task-detail" pk=task.id %}">{{ task }}</a></li>
-                {% endfor %}
+                  {% endfor %}
+                {% else %}
+                  <p class="text-sm">There is no completed tasks</p>
+                {% endif %}
               </ul>
+              {% else %}
+                <p class="text-sm">There is no assigned tasks</p>
+              {% endif %}
             </div>
           </div>
         </div>
