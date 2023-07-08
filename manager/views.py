@@ -23,9 +23,9 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["num_workers"] = Worker.objects.count()
-        context["num_tasks"] = Task.objects.count()
-        context["num_of_done_tasks"] = Task.objects.filter(
-            is_completed=True
+        context["num_of_projects"] = Project.objects.count()
+        context["num_of_done_projects"] = Project.objects.filter(
+            status="complete"
         ).count()
 
         project_list = Project.objects.all()
