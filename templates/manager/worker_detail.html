@@ -10,9 +10,13 @@
         <div class="row gx-4">
           <div class="col-auto my-auto">
             <div class="h-100">
-              <h5 class="mb-1">
+              {% if worker.first_name or worker.last_name %}
+                <h5 class="mb-1">
                 {{ worker.first_name }} {{ worker.last_name }}
-              </h5>
+                </h5>
+              {% else %}
+                {{ worker.username }}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -32,7 +36,7 @@
                 </div>
                 <div class="col-md-4 text-end">
                   <a href="{% url "manager:worker-update" pk=worker.id %}">
-                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Assign workers to task"></i>
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit worker"></i>
                   </a>
                 </div>
               </div>
