@@ -107,7 +107,7 @@ class Task(models.Model):
         project = self.project
 
         if project:
-            completed_tasks = project.tasks.filter(is_completed=True)
+            completed_tasks = project.tasks.filter(is_completed=True).select_related("task_type")
             all_tasks_completed = (
                 completed_tasks.count() == project.tasks.count()
             )
@@ -117,4 +117,4 @@ class Task(models.Model):
             else:
                 project.status = "working"
 
-            project.save()
+            project.save().prefetch_related("tasks")

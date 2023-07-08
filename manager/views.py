@@ -47,7 +47,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     template_name = "manager/task_list.html"
     paginate_by = 4
-    queryset = Task.objects.all()
+    queryset = Task.objects.select_related("task_type").all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
@@ -95,7 +95,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     template_name = "manager/worker_list.html"
     paginate_by = 10
-    queryset = Worker.objects.all()
+    queryset = Worker.objects.all().select_related("position")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
