@@ -7,31 +7,27 @@
 {% block content %}
     <h6><a class="btn btn-primary" href="{% url "manager:position-create" %}">Add new position</a></h6>
     {% if position_list %}
-      <div class="row">
-        <div class="col-12">
+      <div class="row mx-0 px-0">
+        <div class="col-12 px-0">
           <div class="card mb-4">
             <div class="card-header pb-0">
               <h6>Positions</h6>
             </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
+            <div class="card-body pt-0 pb-2">
+              <div class="table-responsive">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Employees in the position</th>
-                      <th class="text-secondary opacity-7"></th>
+                      <th class="col-6 col-md-8 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position name</th>
+                      <th class="col-3 col-md-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Employees in the position</th>
+                      <th class="col-3 col-md-2 text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for position in position_list %}
                       <tr>
                       <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ position.name }}</h6>
-                          </div>
-                        </div>
+                        {{ position.name }}
                       </td>
                       <td>
                         {{ position.workers.all.count }}
