@@ -2,12 +2,34 @@
 <!-- Navbar -->
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
   <div class="container-fluid py-1 px-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{% url "manager:index" %}">Home</a></li>
+            <li class="breadcrumb-item text-sm text-dark opacity-5" aria-current="page">
+              {% if request.path == "/projects/"%}
+                Projects
+              {% elif request.path == "/teams/" %}
+                Teams
+              {% elif request.path == "/workers/" %}
+                Employees
+              {% elif request.path == "/tasks/" %}
+                Tasks
+              {% elif request.path == "/positions/" %}
+                Positions
+              {% elif request.path == "/task-types/" %}
+                Task types
+              {% elif object %}
+                {{ object.name }}
+              {% endif %}
+            </li>
+        </ol>
+    </nav>
     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
       <div class="ms-md-auto pe-md-4 d-flex align-items-center justify-content-center"> <!-- Modified class: justify-content-center -->
         <div class="input-group">
           <form class="form-outline" method="get">
             <div class="d-flex align-items-center"> <!-- Added class: d-flex align-items-center -->
-              <div class="mx-auto" style="width: 800px;"> <!-- Modified class: mx-auto and added style width -->
+              <div class="mx-auto" style="width: 500px;"> <!-- Modified class: mx-auto and added style width -->
                 {{ search_form|crispy }}
               </div>
               {% if search_form %}
