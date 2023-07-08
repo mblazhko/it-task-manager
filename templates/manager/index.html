@@ -92,15 +92,15 @@
             <div class="card-header pb-0">
               <h6>Projects table</h6>
             </div>
-            <div class="card-body px-0 pt-0 pb-2">
+            <div class="card-body pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center justify-content-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Assigned teams</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
+                      <th class="col-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                      <th class="col-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Assigned teams</th>
+                      <th class="col-1 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                      <th class="col-4 text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -114,7 +114,7 @@
                           </div>
                         </td>
                         <td>
-                          <p class="text-sm font-weight-bold mb-0 text-truncate">
+                          <p class="col-auto text-sm font-weight-bold mb-0 text-truncate">
                             {% for team in project.team.all %}
                               {{ team.name }}
                               {% if not forloop.last %},{% endif %}
