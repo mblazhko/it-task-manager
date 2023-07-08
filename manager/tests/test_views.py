@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from manager.models import Position
+from manager.models import Position, Team, TaskType, Project, Task
 
 POSITION_LIST_URL = reverse("manager:position-list")
 WORKER_LIST_URL = reverse("manager:worker-list")
@@ -25,14 +25,60 @@ class BasePrivateTest(TestCase):
         )
         self.client.force_login(self.admin_user)
 
-        number_of_users = 11
+        self.worker = get_user_model().objects.create_user(
+            username="TestWorker",
+            password="testpass12345",
+            first_name="Test first",
+            last_name="Test last"
+        )
 
-        for users in range(number_of_users):
-            get_user_model().objects.create(
-                username=f"TestUser {users}",
-                password=f"tests126 {users}",
-                license_number=self.position,
-            )
+        self.task_type = TaskType.objects.create(
+            name="test_task"
+        )
+        self.team = Team.objects.create(
+            name="test_team"
+        )
+        self.team.members.set([self.worker])
+        self.project = Project.objects.create(
+            name="test_project",
+            status="working",
+        )
+        self.project.team.set([self.team])
+        self.task = Task.objects.create(
+            name="test_task",
+            deadline="2031-01-01",
+            is_completed=False,
+            priority="medium",
+            task_type=self.task_type,
+            project=self.project
+        )
+        self.task.assignees.set([self.worker])
+
+
+class PrivatePositionTest(BasePrivateTest):
+    def test_retrieve_positions(self):
+        response = self.client.get(POSITION_LIST_URL)
+        positions = Position.objects.all()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["position_list"]),
+            list(positions)
+        )
+        self.assertTemplateUsed(response, "manager/position_list.html")
+
+
+class PrivateWorkerTest(BasePrivateTest):
+    def test_retrieve_positions(self):
+        response = self.client.get(WORKER_LIST_URL)
+        positions = Position.objects.all()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["position_list"]),
+            list(positions)
+        )
+        self.assertTemplateUsed(response, "manager/position_list.html")
 
 
 class PublicPositionTest(TestCase):
@@ -57,6 +103,7 @@ class PublicWorkerTest(TestCase):
         res = self.client.get(WORKER_DETAIL_URL)
 
         self.assertNotEqual(res.status_code, 200)
+
 
 class PublicTaskTypeTest(TestCase):
     def test_list_login_reqired(self):
