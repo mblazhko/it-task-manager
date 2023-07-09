@@ -1,11 +1,12 @@
-import datetime
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q, QuerySet
 from django.utils import timezone
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
 
 from manager.models import Worker, Task, Position, Project, Team
 
@@ -52,6 +53,23 @@ class WorkerCreationForm(UserCreationForm):
             "last_name",
         )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("username", css_class="form-group col-md-3 mb-0"),
+                Column("position", css_class="form-group col-md-3 mb-0"),
+            ),
+            Row(
+                Column('first_name', css_class='form-group col-md-3 mb-0'),
+                Column('last_name', css_class='form-group col-md-3 mb-0'),
+            ),
+            Row(
+                Column('password1', css_class='form-group col-md-3 mb-0'),
+                Column('password2', css_class='form-group col-md-3 mb-0'),
+            ),
+        )
 
 class ProjectCreationForm(forms.ModelForm):
     team = forms.ModelMultipleChoiceField(
