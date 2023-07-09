@@ -142,6 +142,30 @@ class PrivateProjectTest(BasePrivateTest):
         self.assertTemplateUsed(response, "manager/project_detail.html")
 
 
+class PrivateTaskTest(BasePrivateTest):
+    def test_retrieve_task_list(self):
+        response = self.client.get(TASK_LIST_URL)
+        tasks = Task.objects.all()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["task_list"]),
+            list(tasks)
+        )
+        self.assertTemplateUsed(response, "manager/task_list.html")
+
+    def test_retrieve_task_detail(self):
+        response = self.client.get(TASK_DETAIL_URL)
+        task = Task.objects.get(id=self.task.id)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["task"],
+            task
+        )
+        self.assertTemplateUsed(response, "manager/task_detail.html")
+
+
 class PublicPositionTest(TestCase):
     def test_list_login_reqired(self):
         res = self.client.get(POSITION_LIST_URL)
