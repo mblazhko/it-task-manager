@@ -18,6 +18,8 @@
                 Positions
               {% elif request.path == "/task-types/" %}
                 Task types
+              {% elif object == worker %}
+                {{ object.username }}
               {% elif object %}
                 {{ object.name }}
               {% endif %}
