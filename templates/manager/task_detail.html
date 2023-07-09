@@ -14,7 +14,7 @@
                   <h6 class="mb-0">{{ task.name }}</h6>
                 </div>
                 <div class="col-md-4 text-end">
-                  <a href="{% url "manager:task-update" pk=task.id %}">
+                  <a class="icon-move-left" href="{% url "manager:task-update" pk=task.id %}">
                     <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Assign workers to task"></i>
                   </a>
                 </div>
