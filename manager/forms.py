@@ -44,16 +44,6 @@ class TaskForm(forms.ModelForm):
             ),
         )
 
-    def clean_is_completed(self):
-        is_completed = self.cleaned_data.get("is_completed")
-
-        if self.instance.pk is None and is_completed:
-            raise ValidationError(
-                "Status can't be set as 'completed' during task creation."
-            )
-
-        return is_completed
-
     def clean_deadline(self):
         deadline = self.cleaned_data.get("deadline")
         now = timezone.now()
