@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-from django.urls import reverse
 
 from manager.forms import TaskForm, TaskSearchForm, WorkerCreationForm, WorkerSearchForm, ProjectCreationForm, \
     ProjectSearchForm, TeamCreationForm, TeamSearchForm, PositionSearchForm, TaskTypeSearchForm
