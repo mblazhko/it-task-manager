@@ -6,7 +6,7 @@ from django.db.models import Q, QuerySet
 from django.utils import timezone
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
+from crispy_forms.layout import Layout, Row, Column, Submit
 
 from manager.models import Worker, Task, Position, Project, Team, TaskType
 
@@ -45,6 +45,9 @@ class TaskForm(forms.ModelForm):
                        style="max-height: 600px; overflow-y: auto;"
                        ),
             ),
+            Row(
+                Column(Submit("submit", "Save", css_class='btn btn-primary')),
+            )
         )
 
     def clean_deadline(self):
@@ -86,6 +89,9 @@ class WorkerCreationForm(UserCreationForm):
                 Column("password1", css_class="form-group col-md-4 mb-0"),
                 Column("password2", css_class="form-group col-md-4 mb-0"),
             ),
+            Row(
+                Column(Submit("submit", "Save", css_class='btn btn-primary')),
+            )
         )
 
 
@@ -113,6 +119,9 @@ class ProjectCreationForm(forms.ModelForm):
             Row(
                 Column("team", css_class="form-group col-md-8 mb-0"),
             ),
+            Row(
+                Column(Submit("submit", "Save", css_class='btn btn-primary')),
+            )
         )
 
     def clean_status(self):
@@ -148,6 +157,9 @@ class TeamCreationForm(forms.ModelForm):
                        style="max-height: 600px; overflow-y: auto;"
                        ),
             ),
+            Row(
+                Column(Submit("submit", "Save", css_class='btn btn-primary')),
+            )
         )
 
 
@@ -163,6 +175,9 @@ class PositionCreationForm(forms.ModelForm):
             Row(
                 Column("name", css_class="form-group col-md-4 mb-0"),
             ),
+            Row(
+                Column(Submit("submit", "Add position", css_class='btn btn-primary')),
+            )
         )
 
 
@@ -178,6 +193,9 @@ class TaskTypeCreationForm(forms.ModelForm):
             Row(
                 Column("name", css_class="form-group col-md-4 mb-0"),
             ),
+            Row(
+                Column(Submit("submit", "Add task type", css_class='btn btn-primary')),
+            )
         )
 
 
