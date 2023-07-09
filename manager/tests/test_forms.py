@@ -2,7 +2,8 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from manager.forms import TaskForm, TaskSearchForm, WorkerCreationForm, WorkerSearchForm
+from manager.forms import TaskForm, TaskSearchForm, WorkerCreationForm, WorkerSearchForm, ProjectCreationForm, \
+    ProjectSearchForm
 from manager.models import Team, Project, TaskType, Task, Position
 
 
@@ -46,7 +47,7 @@ class BaseFormTest(TestCase):
 
 
 class TaskFormTest(BaseFormTest):
-    def test_task_creation_form_with_non_valid_completed_status(self):
+    def test_task_creation_form_with_completed_status_non_valid(self):
         form_data = {
             "name": "TestTask",
             "deadline": "2023-03-03",
@@ -84,4 +85,21 @@ class WorkerFormTest(BaseFormTest):
     def test_worker_search_username_first_last_name(self):
         form_data = {"keyword": "test"}
         form = WorkerSearchForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+
+class ProjectFormTest(BaseFormTest):
+    def test_project_creation_with_completed_status_non_valid(self):
+        form_data = {
+            "name": "TestProject",
+            "status": "completed",
+            "team": [self.team.id]
+        }
+
+        form = ProjectCreationForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_project_search(self):
+        form_data = {"name": "test"}
+        form = ProjectSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
