@@ -42,6 +42,7 @@ class TaskForm(forms.ModelForm):
 
         return deadline
 
+
 class WorkerCreationForm(UserCreationForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all())
 
@@ -62,14 +63,15 @@ class WorkerCreationForm(UserCreationForm):
                 Column("position", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column('first_name', css_class='form-group col-md-4 mb-0'),
-                Column('last_name', css_class='form-group col-md-4 mb-0'),
+                Column("first_name", css_class="form-group col-md-4 mb-0"),
+                Column("last_name", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column('password1', css_class='form-group col-md-4 mb-0'),
-                Column('password2', css_class='form-group col-md-4 mb-0'),
+                Column("password1", css_class="form-group col-md-4 mb-0"),
+                Column("password2", css_class="form-group col-md-4 mb-0"),
             ),
         )
+
 
 class ProjectCreationForm(forms.ModelForm):
     team = forms.ModelMultipleChoiceField(
@@ -90,13 +92,12 @@ class ProjectCreationForm(forms.ModelForm):
                 Column("status", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column('description', css_class='form-group col-md-8 mb-0'),
+                Column("description", css_class="form-group col-md-8 mb-0"),
             ),
             Row(
-                Column('team', css_class='form-group col-md-8 mb-0'),
-            )
+                Column("team", css_class="form-group col-md-8 mb-0"),
+            ),
         )
-
 
     def clean_status(self):
         status = self.cleaned_data.get("status")
@@ -118,6 +119,20 @@ class TeamCreationForm(forms.ModelForm):
     class Meta:
         model = Team
         fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("name", css_class="form-group col-md-4 mb-0"),
+            ),
+            Row(
+                Column("members", css_class="form-group col-md-4 h-50 mb-4",
+                       style="max-height: 600px; overflow-y: auto;"
+                       ),
+            ),
+        )
 
 
 class WorkerSearchForm(forms.Form):
