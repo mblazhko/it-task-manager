@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
 {% block title %}- {{ object|yesno:"Edit worker,Create a new worker" }}{% endblock %}
 
 {% block content %}
   <h1>{{ object|yesno:"Edit,Create" }}
     {% if object %}
-      "{{ worker.first_name }} {{ worker.last_name }}"
+      "{{ object.first_name }} {{ object.last_name }}"
     {% else %}
       new worker
     {% endif %}
@@ -14,7 +14,7 @@
   <div class="container-fluid py-4">
     <form action="" method="post" novalidate>
       {% csrf_token %}
-      {{ form|crispy }}
+      {% crispy form %}
 
       <input type="submit" value="Save" class="btn btn-primary">
     </form>
