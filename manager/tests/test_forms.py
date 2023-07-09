@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from manager.forms import TaskForm, TaskSearchForm, WorkerCreationForm, WorkerSearchForm, ProjectCreationForm, \
-    ProjectSearchForm
+    ProjectSearchForm, TeamCreationForm, TeamSearchForm, PositionSearchForm, TaskTypeSearchForm
 from manager.models import Team, Project, TaskType, Task, Position
 
 
@@ -102,4 +102,36 @@ class ProjectFormTest(BaseFormTest):
     def test_project_search(self):
         form_data = {"name": "test"}
         form = ProjectSearchForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+
+class TeamFormTest(BaseFormTest):
+    def test_team_creation_is_valid(self):
+        form_data = {
+            "name": "TestTeam",
+            "members": [self.admin_user]
+        }
+        form = TeamCreationForm(data=form_data)
+
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data["name"], "TestTeam")
+        self.assertEqual(list(form.cleaned_data["members"]), [self.admin_user])
+
+    def test_team_search_name(self):
+        form_data = {"name": "test"}
+        form = TeamSearchForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+
+class PositionFormTest(BaseFormTest):
+    def test_position_search_name(self):
+        form_data = {"name": "test"}
+        form = PositionSearchForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+
+class TaskTypeFormTest(BaseFormTest):
+    def test_task_type_search_name(self):
+        form_data = {"name": "test"}
+        form = TaskTypeSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
