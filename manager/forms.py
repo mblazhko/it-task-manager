@@ -148,6 +148,22 @@ class TeamCreationForm(forms.ModelForm):
         )
 
 
+class PositionCreationForm(forms.ModelForm):
+    class Meta:
+        model = Position
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("name", css_class="form-group col-md-4 mb-0"),
+            ),
+        )
+
+
+
 class WorkerSearchForm(forms.Form):
     keyword = forms.CharField(
         required=False,

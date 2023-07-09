@@ -12,7 +12,7 @@ from manager.forms import (
     TaskTypeSearchForm,
     ProjectCreationForm,
     TeamCreationForm,
-    ProjectSearchForm, TeamSearchForm,
+    ProjectSearchForm, TeamSearchForm, PositionCreationForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -170,7 +170,7 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
 
 class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     model = Position
-    fields = "__all__"
+    form_class = PositionCreationForm
     success_url = reverse_lazy("manager:position-list")
 
 
