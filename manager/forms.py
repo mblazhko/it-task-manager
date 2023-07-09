@@ -1,8 +1,11 @@
+import datetime
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q, QuerySet
+from django.utils import timezone
 
 from manager.models import Worker, Task, Position, Project, Team
 
@@ -27,6 +30,16 @@ class TaskForm(forms.ModelForm):
 
         return is_completed
 
+    def clean_deadline(self):
+        deadline = self.cleaned_data.get("deadline")
+        now = timezone.now()
+
+        if deadline < now:
+            raise ValidationError(
+                "Deadline can't be earlier than current date"
+            )
+
+        return deadline
 
 class WorkerCreationForm(UserCreationForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all())
