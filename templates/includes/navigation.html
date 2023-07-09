@@ -1,5 +1,4 @@
 {% load crispy_forms_filters %}
-<!-- Navbar -->
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
   <div class="container-fluid py-1 px-3">
     <nav aria-label="breadcrumb">
@@ -27,11 +26,11 @@
         </ol>
     </nav>
     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-      <div class="ms-md-auto pe-md-4 d-flex align-items-center justify-content-center"> <!-- Modified class: justify-content-center -->
+      <div class="ms-md-auto pe-md-4 d-flex align-items-center justify-content-center">
         <div class="input-group">
           <form class="form-outline" method="get">
-            <div class="d-flex align-items-center"> <!-- Added class: d-flex align-items-center -->
-              <div class="mx-auto" style="width: 500px;"> <!-- Modified class: mx-auto and added style width -->
+            <div class="d-flex align-items-center">
+              <div class="mx-auto" style="width: 500px;">
                 {{ search_form|crispy }}
               </div>
               {% if search_form %}
@@ -41,10 +40,10 @@
           </form>
         </div>
       </div>
-      <ul class="navbar-nav ms-auto"> <!-- Modified class: ms-auto -->
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item d-flex align-items-center">
           <a href="{% url 'logout' %}" class="nav-link text-body font-weight-bold px-0">
-            <i class="fa fa-user me-1"></i> <!-- Modified class: me-1 -->
+            <i class="fa fa-user me-1"></i>
             <span class="d-sm-inline d-none">LOGOUT</span>
           </a>
         </li>
