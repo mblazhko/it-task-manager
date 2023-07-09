@@ -21,6 +21,29 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = "__all__"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("name", css_class="form-group col-md-4 mb-0"),
+                Column("deadline", css_class="form-group col-md-4 mb-0"),
+            ),
+            Row(
+                Column("project", css_class="form-group col-md-4 mb-0"),
+                Column("priority", css_class="form-group col-md-2 mb-0"),
+                Column("task_type", css_class="form-group col-md-2 mb-0"),
+            ),
+            Row(
+                Column("description", css_class="form-group col-md-8 mb-0"),
+            ),
+            Row(
+                Column("assignees", css_class="form-group col-md-4 h-50 mb-4",
+                       style="max-height: 600px; overflow-y: auto;"
+                       ),
+            ),
+        )
+
     def clean_is_completed(self):
         is_completed = self.cleaned_data.get("is_completed")
 
