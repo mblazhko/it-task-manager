@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from manager.forms import TaskForm, TaskSearchForm
+from manager.forms import TaskForm, TaskSearchForm, WorkerCreationForm, WorkerSearchForm
 from manager.models import Team, Project, TaskType, Task, Position
 
 
@@ -66,3 +66,22 @@ class TaskFormTest(BaseFormTest):
         self.assertTrue(form.is_valid())
 
 
+class WorkerFormTest(BaseFormTest):
+    def test_worker_form_with_position_first_last_name_is_valid(self):
+        form_data = {
+            "username": "username",
+            "password1": "passtes45",
+            "password2": "passtes45",
+            "first_name": "test first",
+            "last_name": "test last",
+            "position": self.position,
+        }
+        form = WorkerCreationForm(data=form_data)
+
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data, form_data)
+
+    def test_worker_search_username_first_last_name(self):
+        form_data = {"keyword": "test"}
+        form = WorkerSearchForm(data=form_data)
+        self.assertTrue(form.is_valid())
