@@ -12,7 +12,7 @@ from manager.forms import (
     TaskTypeSearchForm,
     ProjectCreationForm,
     TeamCreationForm,
-    ProjectSearchForm, TeamSearchForm, PositionCreationForm,
+    ProjectSearchForm, TeamSearchForm, PositionCreationForm, TaskTypeCreationForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -214,7 +214,7 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = TaskType
-    fields = "__all__"
+    form_class = TaskTypeCreationForm
     success_url = reverse_lazy("manager:task-type-list")
 
 

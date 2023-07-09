@@ -8,7 +8,7 @@ from django.utils import timezone
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 
-from manager.models import Worker, Task, Position, Project, Team
+from manager.models import Worker, Task, Position, Project, Team, TaskType
 
 
 class TaskForm(forms.ModelForm):
@@ -162,6 +162,20 @@ class PositionCreationForm(forms.ModelForm):
             ),
         )
 
+
+class TaskTypeCreationForm(forms.ModelForm):
+    class Meta:
+        model = TaskType
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("name", css_class="form-group col-md-4 mb-0"),
+            ),
+        )
 
 
 class WorkerSearchForm(forms.Form):
