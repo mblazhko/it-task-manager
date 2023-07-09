@@ -6,21 +6,15 @@ from manager.models import Position, TaskType, Team, Project, Task
 
 class ModelTest(TestCase):
     def setUp(self):
-        self.position = Position.objects.create(
-            name="test_position"
-        )
+        self.position = Position.objects.create(name="test_position")
         self.worker = get_user_model().objects.create_user(
             username="TestWorker",
             password="testpass12345",
             first_name="Test first",
-            last_name="Test last"
+            last_name="Test last",
         )
-        self.task_type = TaskType.objects.create(
-            name="test_task"
-        )
-        self.team = Team.objects.create(
-            name="test_team"
-        )
+        self.task_type = TaskType.objects.create(name="test_task")
+        self.team = Team.objects.create(name="test_team")
         self.team.members.set([self.worker])
         self.project = Project.objects.create(
             name="test_project",
@@ -33,7 +27,7 @@ class ModelTest(TestCase):
             is_completed=False,
             priority="medium",
             task_type=self.task_type,
-            project=self.project
+            project=self.project,
         )
         self.task.assignees.set([self.worker])
 
@@ -46,7 +40,8 @@ class ModelTest(TestCase):
     def test_worker_str(self):
         self.assertEqual(
             str(self.worker),
-            f"{self.worker.username} ({self.worker.first_name} {self.worker.last_name})",
+            f"{self.worker.username} "
+            f"({self.worker.first_name} {self.worker.last_name})",
         )
 
     def test_task_type_str(self):

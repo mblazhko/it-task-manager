@@ -1,8 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from manager.forms import TaskForm, TaskSearchForm, WorkerCreationForm, WorkerSearchForm, ProjectCreationForm, \
-    ProjectSearchForm, TeamCreationForm, TeamSearchForm, PositionSearchForm, TaskTypeSearchForm
+from manager.forms import (
+    TaskForm,
+    TaskSearchForm,
+    WorkerCreationForm,
+    WorkerSearchForm,
+    ProjectCreationForm,
+    ProjectSearchForm,
+    TeamCreationForm,
+    TeamSearchForm,
+    PositionSearchForm,
+    TaskTypeSearchForm,
+)
 from manager.models import Team, Project, TaskType, Task, Position
 
 
@@ -26,9 +36,7 @@ class BaseFormTest(TestCase):
         )
         self.project.team.set([self.team])
 
-        self.task_type = TaskType.objects.create(
-            name="TestTaskType"
-        )
+        self.task_type = TaskType.objects.create(name="TestTaskType")
 
         self.task = Task.objects.create(
             name="test_task",
@@ -36,7 +44,7 @@ class BaseFormTest(TestCase):
             is_completed=False,
             priority="medium",
             task_type=self.task_type,
-            project=self.project
+            project=self.project,
         )
         self.task.assignees.set([self.admin_user])
 
@@ -92,7 +100,7 @@ class ProjectFormTest(BaseFormTest):
         form_data = {
             "name": "TestProject",
             "status": "completed",
-            "team": [self.team.id]
+            "team": [self.team.id],
         }
 
         form = ProjectCreationForm(data=form_data)
@@ -106,10 +114,7 @@ class ProjectFormTest(BaseFormTest):
 
 class TeamFormTest(BaseFormTest):
     def test_team_creation_is_valid(self):
-        form_data = {
-            "name": "TestTeam",
-            "members": [self.admin_user]
-        }
+        form_data = {"name": "TestTeam", "members": [self.admin_user]}
         form = TeamCreationForm(data=form_data)
 
         self.assertTrue(form.is_valid())

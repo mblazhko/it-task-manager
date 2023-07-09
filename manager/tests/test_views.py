@@ -29,15 +29,11 @@ class BasePrivateTest(TestCase):
             username="TestWorker",
             password="testpass12345",
             first_name="Test first",
-            last_name="Test last"
+            last_name="Test last",
         )
 
-        self.task_type = TaskType.objects.create(
-            name="test_task"
-        )
-        self.team = Team.objects.create(
-            name="test_team"
-        )
+        self.task_type = TaskType.objects.create(name="test_task")
+        self.team = Team.objects.create(name="test_team")
         self.team.members.set([self.worker])
         self.project = Project.objects.create(
             name="test_project",
@@ -50,7 +46,7 @@ class BasePrivateTest(TestCase):
             is_completed=False,
             priority="medium",
             task_type=self.task_type,
-            project=self.project
+            project=self.project,
         )
         self.task.assignees.set([self.worker])
 
@@ -74,10 +70,7 @@ class PrivateWorkerTest(BasePrivateTest):
         workers = Worker.objects.all()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            list(response.context["worker_list"]),
-            list(workers)
-        )
+        self.assertEqual(list(response.context["worker_list"]), list(workers))
         self.assertTemplateUsed(response, "manager/worker_list.html")
 
     def test_retrieve_worker_detail(self):
@@ -85,10 +78,7 @@ class PrivateWorkerTest(BasePrivateTest):
         worker = get_user_model().objects.get(id=self.admin_user.id)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.context["worker"],
-            worker
-        )
+        self.assertEqual(response.context["worker"], worker)
         self.assertTemplateUsed(response, "manager/worker_detail.html")
 
 
@@ -111,10 +101,7 @@ class PrivateTeamTest(BasePrivateTest):
         teams = Team.objects.all()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            list(response.context["team_list"]),
-            list(teams)
-        )
+        self.assertEqual(list(response.context["team_list"]), list(teams))
         self.assertTemplateUsed(response, "manager/team_list.html")
 
 
@@ -135,10 +122,7 @@ class PrivateProjectTest(BasePrivateTest):
         project = Project.objects.get(id=self.project.id)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.context["project"],
-            project
-        )
+        self.assertEqual(response.context["project"], project)
         self.assertTemplateUsed(response, "manager/project_detail.html")
 
 
@@ -148,10 +132,7 @@ class PrivateTaskTest(BasePrivateTest):
         tasks = Task.objects.all()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            list(response.context["task_list"]),
-            list(tasks)
-        )
+        self.assertEqual(list(response.context["task_list"]), list(tasks))
         self.assertTemplateUsed(response, "manager/task_list.html")
 
     def test_retrieve_task_detail(self):
@@ -159,10 +140,7 @@ class PrivateTaskTest(BasePrivateTest):
         task = Task.objects.get(id=self.task.id)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.context["task"],
-            task
-        )
+        self.assertEqual(response.context["task"], task)
         self.assertTemplateUsed(response, "manager/task_detail.html")
 
 

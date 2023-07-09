@@ -107,7 +107,9 @@ class Task(models.Model):
         project = self.project
 
         if project:
-            completed_tasks = project.tasks.filter(is_completed=True).select_related("task_type")
+            completed_tasks = project.tasks.filter(
+                is_completed=True
+            ).select_related("task_type")
             all_tasks_completed = (
                 completed_tasks.count() == project.tasks.count()
             )
