@@ -20,6 +20,9 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = "__all__"
+        widgets = {
+            "deadline": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
