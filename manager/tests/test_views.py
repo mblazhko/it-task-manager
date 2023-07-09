@@ -217,14 +217,12 @@ class PublicProjectTest(TestCase):
 
 
 class PublicTaskTest(TestCase):
-    def test_list_login_reqired(self):
+    def test_task_list_login_reqired(self):
         res = self.client.get(TASK_LIST_URL)
 
         self.assertNotEqual(res.status_code, 200)
 
-    def test_list_login_reqired(self):
+    def test_detail_login_reqired(self):
         res = self.client.get(TASK_DETAIL_URL)
 
         self.assertNotEqual(res.status_code, 200)
-
-
