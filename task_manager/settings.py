@@ -43,13 +43,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_bootstrap5",
-    "debug_toolbar",
     "manager",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -76,10 +74,6 @@ TEMPLATES = [
         },
     },
 ]
-
-# INTERNAL_IPS = [
-#     "127.0.0.1",
-# ]
 
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
