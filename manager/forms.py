@@ -120,7 +120,7 @@ class ProjectCreationForm(forms.ModelForm):
             Row(
                 Column("name",
                        css_class="form-group col-md-4" if is_update else "form-group col-md-8"
-                ),
+                       ),
                 Column(
                     "status",
                     css_class="d-none" if not is_update else "form-group col-md-4"
@@ -130,7 +130,9 @@ class ProjectCreationForm(forms.ModelForm):
                 Column("description", css_class="form-group col-md-8 mb-0"),
             ),
             Row(
-                Column("team", css_class="form-group col-md-8 mb-0"),
+                Column("team", css_class="form-group col-md-8 mb-0",
+                       style="max-height: 600px; overflow-y: auto;"
+                       ),
             ),
             Row(
                 Column(Submit("submit", "Save", css_class='btn btn-primary')),
