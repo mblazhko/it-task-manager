@@ -85,6 +85,10 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = TaskForm
     success_url = reverse_lazy("manager:task-list")
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['is_update'] = True
+        return kwargs
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task

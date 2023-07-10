@@ -25,6 +25,7 @@ class TaskForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        is_update = kwargs.pop('is_update', False)
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -36,6 +37,12 @@ class TaskForm(forms.ModelForm):
                 Column("project", css_class="form-group col-md-4 mb-0"),
                 Column("priority", css_class="form-group col-md-2 mb-0"),
                 Column("task_type", css_class="form-group col-md-2 mb-0"),
+            ),
+            Row(
+                Column(
+                    "is_completed",
+                    css_class="d-none" if not is_update else "form-group col-md-2",
+                ),
             ),
             Row(
                 Column("description", css_class="form-group col-md-8 mb-0"),
