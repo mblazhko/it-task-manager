@@ -30,7 +30,7 @@
         <div class="input-group">
           <form class="form-outline" method="get">
             <div class="d-flex align-items-center">
-              <div class="mx-auto" style="width: 500px;">
+              <div class="w-100">
                 {{ search_form|crispy }}
               </div>
               {% if search_form %}
@@ -40,7 +40,16 @@
           </form>
         </div>
       </div>
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto justify-content-end">
+        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <a href="javascript:" class="nav-link mx-2 text-body p-0" id="iconNavbarSidenav">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </a>
+        </li>
         <li class="nav-item d-flex align-items-center">
           <a href="{% url 'logout' %}" class="nav-link text-body font-weight-bold px-0">
             <i class="fa fa-user me-1"></i>
