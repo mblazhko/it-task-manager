@@ -283,6 +283,11 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = ProjectCreationForm
     success_url = reverse_lazy("manager:project-list")
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['is_update'] = True
+        return kwargs
+
 
 class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Project

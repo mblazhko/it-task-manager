@@ -113,12 +113,18 @@ class ProjectCreationForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
+        is_update = kwargs.pop('is_update', False)
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column("name", css_class="form-group col-md-4 mb-0"),
-                Column("status", css_class="form-group col-md-4 mb-0"),
+                Column("name",
+                       css_class="form-group col-md-4" if is_update else "form-group col-md-8"
+                ),
+                Column(
+                    "status",
+                    css_class="d-none" if not is_update else "form-group col-md-4"
+                ),
             ),
             Row(
                 Column("description", css_class="form-group col-md-8 mb-0"),
