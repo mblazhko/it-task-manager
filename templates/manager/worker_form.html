@@ -6,7 +6,7 @@
 {% block content %}
   <h1>{{ object|yesno:"Edit,Create" }}
     {% if object %}
-      "{{ object.first_name }} {{ object.last_name }}"
+      "{{ worker.username }}"
     {% else %}
       new worker
     {% endif %}
