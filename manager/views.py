@@ -15,7 +15,7 @@ from manager.forms import (
     ProjectSearchForm,
     TeamSearchForm,
     PositionCreationForm,
-    TaskTypeCreationForm,
+    TaskTypeCreationForm, WorkerUpdateForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -132,18 +132,18 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
     form_class = WorkerCreationForm
-    success_url = reverse_lazy("manager:worker_list")
+    success_url = reverse_lazy("manager:worker-list")
 
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
-    form_class = WorkerCreationForm
-    success_url = reverse_lazy("manager:worker_list")
+    form_class = WorkerUpdateForm
+    success_url = reverse_lazy("manager:worker-list")
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
-    success_url = reverse_lazy("manager:worker_list")
+    success_url = reverse_lazy("manager:worker-list")
 
 
 class PositionListView(LoginRequiredMixin, generic.ListView):
