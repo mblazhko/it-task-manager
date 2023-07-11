@@ -25,7 +25,7 @@ It provides a user-friendly interface for organizing and tracking tasks within a
    ```git clone https://github.com/neostyle88/it-task-manager.git```
 
 2. Navigate to the project directory:
-   ```cd task_manager```
+   ```cd it_task_manager```
 
 3. Create a virtual environment:
    ```python -m venv env```
