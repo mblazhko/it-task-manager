@@ -12,7 +12,10 @@ from manager.forms import (
     TaskTypeSearchForm,
     ProjectCreationForm,
     TeamCreationForm,
-    ProjectSearchForm, TeamSearchForm, PositionCreationForm, TaskTypeCreationForm,
+    ProjectSearchForm,
+    TeamSearchForm,
+    PositionCreationForm,
+    TaskTypeCreationForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -87,8 +90,9 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['is_update'] = True
+        kwargs["is_update"] = True
         return kwargs
+
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
@@ -285,7 +289,7 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['is_update'] = True
+        kwargs["is_update"] = True
         return kwargs
 
 

@@ -58,8 +58,7 @@ class PrivatePositionTest(BasePrivateTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            list(response.context["position_list"]),
-            list(positions)
+            list(response.context["position_list"]), list(positions)
         )
         self.assertTemplateUsed(response, "manager/position_list.html")
 
@@ -89,8 +88,7 @@ class PrivateTaskTypeTest(BasePrivateTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            list(response.context["task_type_list"]),
-            list(task_types)
+            list(response.context["task_type_list"]), list(task_types)
         )
         self.assertTemplateUsed(response, "manager/task_type_list.html")
 
@@ -112,8 +110,7 @@ class PrivateProjectTest(BasePrivateTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            list(response.context["project_list"]),
-            list(projects)
+            list(response.context["project_list"]), list(projects)
         )
         self.assertTemplateUsed(response, "manager/project_list.html")
 

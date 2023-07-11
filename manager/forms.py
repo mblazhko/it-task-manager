@@ -1,12 +1,11 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Submit
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.db.models import Q, QuerySet
 from django.utils import timezone
-
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
 
 from manager.models import Worker, Task, Position, Project, Team, TaskType
 
@@ -25,7 +24,7 @@ class TaskForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        is_update = kwargs.pop('is_update', False)
+        is_update = kwargs.pop("is_update", False)
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -41,20 +40,24 @@ class TaskForm(forms.ModelForm):
             Row(
                 Column(
                     "is_completed",
-                    css_class="d-none" if not is_update else "form-group col-md-2",
+                    css_class="d-none"
+                    if not is_update
+                    else "form-group col-md-2",
                 ),
             ),
             Row(
                 Column("description", css_class="form-group col-md-8 mb-0"),
             ),
             Row(
-                Column("assignees", css_class="form-group col-md-4 h-50 mb-4",
-                       style="max-height: 600px; overflow-y: auto;"
-                       ),
+                Column(
+                    "assignees",
+                    css_class="form-group col-md-4 h-50 mb-4",
+                    style="max-height: 600px; overflow-y: auto;",
+                ),
             ),
             Row(
-                Column(Submit("submit", "Save", css_class='btn btn-primary')),
-            )
+                Column(Submit("submit", "Save", css_class="btn btn-primary")),
+            ),
         )
 
     def clean_deadline(self):
@@ -97,8 +100,8 @@ class WorkerCreationForm(UserCreationForm):
                 Column("password2", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column(Submit("submit", "Save", css_class='btn btn-primary')),
-            )
+                Column(Submit("submit", "Save", css_class="btn btn-primary")),
+            ),
         )
 
 
@@ -113,30 +116,37 @@ class ProjectCreationForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
-        is_update = kwargs.pop('is_update', False)
+        is_update = kwargs.pop("is_update", False)
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column("name",
-                       css_class="form-group col-md-4" if is_update else "form-group col-md-8"
-                       ),
+                Column(
+                    "name",
+                    css_class="form-group col-md-4"
+                    if is_update
+                    else "form-group col-md-8",
+                ),
                 Column(
                     "status",
-                    css_class="d-none" if not is_update else "form-group col-md-4"
+                    css_class="d-none"
+                    if not is_update
+                    else "form-group col-md-4",
                 ),
             ),
             Row(
                 Column("description", css_class="form-group col-md-8 mb-0"),
             ),
             Row(
-                Column("team", css_class="form-group col-md-8 mb-0",
-                       style="max-height: 600px; overflow-y: auto;"
-                       ),
+                Column(
+                    "team",
+                    css_class="form-group col-md-8 mb-0",
+                    style="max-height: 600px; overflow-y: auto;",
+                ),
             ),
             Row(
-                Column(Submit("submit", "Save", css_class='btn btn-primary')),
-            )
+                Column(Submit("submit", "Save", css_class="btn btn-primary")),
+            ),
         )
 
     def clean_status(self):
@@ -168,13 +178,15 @@ class TeamCreationForm(forms.ModelForm):
                 Column("name", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column("members", css_class="form-group col-md-4 h-50 mb-4",
-                       style="max-height: 600px; overflow-y: auto;"
-                       ),
+                Column(
+                    "members",
+                    css_class="form-group col-md-4 h-50 mb-4",
+                    style="max-height: 600px; overflow-y: auto;",
+                ),
             ),
             Row(
-                Column(Submit("submit", "Save", css_class='btn btn-primary')),
-            )
+                Column(Submit("submit", "Save", css_class="btn btn-primary")),
+            ),
         )
 
 
@@ -191,8 +203,12 @@ class PositionCreationForm(forms.ModelForm):
                 Column("name", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column(Submit("submit", "Add position", css_class='btn btn-primary')),
-            )
+                Column(
+                    Submit(
+                        "submit", "Add position", css_class="btn btn-primary"
+                    )
+                ),
+            ),
         )
 
 
@@ -209,8 +225,12 @@ class TaskTypeCreationForm(forms.ModelForm):
                 Column("name", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
-                Column(Submit("submit", "Add task type", css_class='btn btn-primary')),
-            )
+                Column(
+                    Submit(
+                        "submit", "Add task type", css_class="btn btn-primary"
+                    )
+                ),
+            ),
         )
 
 
