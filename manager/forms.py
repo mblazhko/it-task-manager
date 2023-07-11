@@ -75,7 +75,7 @@ class TaskForm(forms.ModelForm):
 class WorkerCreationForm(UserCreationForm):
     position = forms.ModelChoiceField(queryset=Position.objects.all())
 
-    class Meta(UserCreationForm.Meta):
+    class Meta(UserCreationForm):
         model = Worker
         fields = UserCreationForm.Meta.fields + (
             "position",
@@ -98,6 +98,30 @@ class WorkerCreationForm(UserCreationForm):
             Row(
                 Column("password1", css_class="form-group col-md-4 mb-0"),
                 Column("password2", css_class="form-group col-md-4 mb-0"),
+            ),
+            Row(
+                Column(Submit("submit", "Save", css_class="btn btn-primary")),
+            ),
+        )
+
+
+class WorkerUpdateForm(forms.ModelForm):
+    position = forms.ModelChoiceField(queryset=Position.objects.all())
+
+    class Meta(UserCreationForm):
+        model = Worker
+        fields = ["position", "first_name", "last_name"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column("first_name", css_class="form-group col-md-4 mb-0"),
+                Column("last_name", css_class="form-group col-md-4 mb-0"),
+            ),
+            Row(
+                Column("position", css_class="form-group col-md-4 mb-0"),
             ),
             Row(
                 Column(Submit("submit", "Save", css_class="btn btn-primary")),
