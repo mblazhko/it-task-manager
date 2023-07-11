@@ -49,6 +49,10 @@
           </div>
         </div>
       </div>
+    {% else %}
+      <h6>Oops, your task types list is empty!</h6>
     {% endif %}
+    <h6><a class="btn btn-primary my-2" href="{% url "manager:task-type-create" %}">Add new task</a></h6>
   </div>
+
 {% endblock %}

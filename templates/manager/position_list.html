@@ -6,7 +6,6 @@
 
 {% block content %}
   <div class="container-fluid py-4">
-    <h6><a class="btn btn-primary" href="{% url "manager:position-create" %}">Add new position</a></h6>
     {% if position_list %}
       <div class="row">
         <div class="col-md-12">
@@ -54,7 +53,8 @@
         </div>
       </div>
     {% else %}
-      <h6>There is nothing according to your request</h6>
+      <h6>Oops, your position list is empty!</h6>
     {% endif %}
+    <h6><a class="btn btn-primary my-2" href="{% url "manager:position-create" %}">Add new position</a></h6>
   </div>
 {% endblock %}

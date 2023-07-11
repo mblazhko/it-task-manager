@@ -4,60 +4,64 @@
 
 {% block content %}
 
-    <div class="container-fluid py-4">
-      <h6><a class="btn btn-primary" href="{% url "manager:worker-create" %}">Add new worker</a></h6>
+  <div class="container-fluid py-4">
+    {% if worker_list %}
       <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header pb-0">
-              <h6>Employees</h6>
-            </div>
-            <div class="card-body pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h6>Employees</h6>
+          </div>
+          <div class="card-body pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="col-6 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                    <th class="col-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Position</th>
+                    <th class="col-1 text-secondary opacity-7"></th>
+                    <th class="col-1 text-secondary opacity-7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for worker in worker_list %}
                     <tr>
-                      <th class="col-6 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                      <th class="col-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Position</th>
-                      <th class="col-1 text-secondary opacity-7"></th>
-                      <th class="col-1 text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for worker in worker_list %}
-                      <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <a href="{% url "manager:worker-detail" pk=worker.id %}">{{ worker.username }}
-                              {% if worker.first_name and worker.last_name %}
-                                ({{ worker.first_name }} {{ worker.last_name }})
-                              {% endif %}
-                            </a>
-                            <p class="text-xs text-secondary mb-0">{{ worker.email }}</p>
-                          </div>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="d-flex flex-column justify-content-center">
+                          <a href="{% url "manager:worker-detail" pk=worker.id %}">{{ worker.username }}
+                            {% if worker.first_name and worker.last_name %}
+                              ({{ worker.first_name }} {{ worker.last_name }})
+                            {% endif %}
+                          </a>
+                          <p class="text-xs text-secondary mb-0">{{ worker.email }}</p>
                         </div>
-                      </td>
-                      <td>
-                        {{ worker.position }}
-                      </td>
-                      <td class="align-middle">
-                        <a href="{% url "manager:worker-update" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          Edit |
-                        </a>
-                        <a href="{% url "manager:worker-delete" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
+                      </div>
+                    </td>
+                    <td>
+                      {{ worker.position }}
+                    </td>
+                    <td class="align-middle">
+                      <a href="{% url "manager:worker-update" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        Edit |
+                      </a>
+                      <a href="{% url "manager:worker-delete" pk=worker.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+    {% else %}
+      <h6>Oops, your team list is empty!</h6>
+    {% endif %}
+    <h6><a class="btn btn-primary my-2" href="{% url "manager:worker-create" %}">Add new worker</a></h6>
+  </div>
 
 {% endblock content %}
