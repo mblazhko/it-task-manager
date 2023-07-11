@@ -40,18 +40,18 @@ It provides a user-friendly interface for organizing and tracking tasks within a
    ```pip install -r requirements.txt```
 
 6. Apply database migrations:
-   
-   ```python manage.py makemigrations```
-
    ```python manage.py migrate```
 
-7. Create a superuser (admin) account:
-   ```python manage.py createsuperuser```   
-
-8. Run the development server:
+7. Run the development server:
    ```python manage.py runserver```
 
-9. Open your web browser and access the Task Manager application at http://localhost:8000/.
+8. Open your web browser and access the Task Manager application at http://localhost:8000/.
+
+> You can use test user made during migration:
+
+   - Username ```admin```
+   - Password ```testpass123```
+
 ---
 ## Environment Variables
 
