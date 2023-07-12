@@ -32,6 +32,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-no7k=*4fy+-6*v*k3jn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG", False) == "True"
 
+SECURE_HSTS_SECONDS = 31536000
+
 ALLOWED_HOSTS = ["127.0.0.1"]
 
 INTERNAL_IPS = [
