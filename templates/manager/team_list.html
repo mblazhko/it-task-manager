@@ -28,7 +28,7 @@
                   <span class="mb-2 text-xs">Members:
                     <span class="text-dark ms-sm-2 font-weight-bold">
                       {% for member in team.members.all %}
-                        <a href="{% url "manager:worker-detail" pk=member.id %}">{{ member.first_name }} {{ member.last_name }}</a>
+                        <a href="{% url "manager:worker-detail" pk=member.id %}">{{ member.username }}</a>
                         {% if not forloop.last %},{% endif %}
                       {% endfor %}
                     </span>
