@@ -44,7 +44,7 @@ CSRF_COOKIE_SECURE = True
 
 SECURE_HSTS_PRELOAD = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "it-task-manager-i4an.onrender.com"]
 
 INTERNAL_IPS = [
     "127.0.0.1",
