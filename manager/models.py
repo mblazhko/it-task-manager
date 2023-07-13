@@ -87,10 +87,14 @@ class Task(models.Model):
         TaskType, on_delete=models.CASCADE, related_name="tasks"
     )
     assignees = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="assignees"
+        settings.AUTH_USER_MODEL, 
+        related_name="assignees",
+        blank=True,
     )
     project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="tasks"
+        Project, on_delete=models.CASCADE,
+        related_name="tasks",
+        blank=True,
     )
 
     class Meta:
