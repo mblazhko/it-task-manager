@@ -9,6 +9,13 @@ It provides a user-friendly interface for organizing and tracking tasks within a
 
 [IT Task Manager deployed to render](https://it-task-manager-i4an.onrender.com)
 
+You can use the user below to look at how it works:
+   
+- Username: ```TestUser```
+- Password: ```pn2dmv5v9NuPVfm```
+
+
+
 ## Features
 
 >- Create, update, and delete projects
