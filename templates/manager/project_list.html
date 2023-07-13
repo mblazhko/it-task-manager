@@ -20,8 +20,13 @@
                   <h6 class="mb-3 text-sm"><a href="{% url "manager:project-detail" pk=project.id %}">{{ project.name }}</a></h6>
                   <span class="mb-2 text-xs">Status: <span class="text-dark ms-sm-2 font-weight-bold">{{ project.status }}</span></span>
                 </div>
-                <div class="ms-auto text-end">
-                  <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{% url "manager:project-delete" pk=project.id %}"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                <div class="d-flex ms-auto text-end">
+                  <form action="{% url 'manager:project-delete' pk=project.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete {{ project.name }}?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link text-danger text-gradient px-3 mb-0" data-toggle="tooltip" data-original-title="Delete project">
+                      <i class="far fa-trash-alt me-2"></i>Delete
+                    </button>
+                  </form>
                   <a class="btn btn-link text-dark px-3 mb-0" href="{% url "manager:project-update" pk=project.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
                 </div>
               </li>

@@ -37,11 +37,12 @@
                         {{ position.workers.all.count }}
                       </td>
                       <td class="align-middle">
-                        <a href="{% url "manager:position-delete" pk=position.id %}"
-                           class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                           data-original-title="Delete user">
-                          Delete
-                        </a>
+                        <form action="{% url 'manager:position-delete' pk=position.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete the position {{ position.name }}?');">
+                          {% csrf_token %}
+                          <button type="submit" class="my-auto btn btn-link text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete position">
+                            Delete
+                          </button>
+                        </form>
                       </td>
                     </tr>
                   {% endfor %}
