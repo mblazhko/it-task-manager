@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -15,7 +15,8 @@ from manager.forms import (
     ProjectSearchForm,
     TeamSearchForm,
     PositionCreationForm,
-    TaskTypeCreationForm, WorkerUpdateForm,
+    TaskTypeCreationForm,
+    WorkerUpdateForm,
 )
 from manager.models import Worker, Task, TaskType, Position, Project, Team
 
@@ -25,11 +26,30 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context["num_workers"] = Worker.objects.count()
-        context["num_of_projects"] = Project.objects.count()
-        context["num_of_done_projects"] = Project.objects.filter(
-            status="completed"
-        ).count()
+
+        user = self.request.user
+
+        user_tasks_stats = (
+            Task.objects.prefetch_related("assignees")
+            .filter(assignees=user)
+            .aggregate(
+                total_tasks=Count("id"),
+                completed_tasks=Count("id", filter=Q(is_completed=True)),
+            )
+        )
+        context["user_tasks_count"] = user_tasks_stats["total_tasks"]
+        context["user_done_tasks_count"] = user_tasks_stats["completed_tasks"]
+
+        user_projects_stats = (
+            Project.objects.prefetch_related("team")
+            .filter(tasks__assignees=user)
+            .aggregate(
+                total_projects=Count("id", distinct=True),
+                completed_projects=Count("id", filter=Q(status="completed")),
+            )
+        )
+        context["user_projects_count"] = user_projects_stats["total_projects"]
+        context["user_done_projects_count"] = user_projects_stats["completed_projects"]
 
         project_list = Project.objects.all()
         for project in project_list:
@@ -169,9 +189,7 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
         form = PositionSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
+            return self.queryset.filter(name__icontains=form.cleaned_data["name"])
 
         return self.queryset
 
@@ -213,9 +231,7 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
         form = TaskTypeSearchForm(self.request.GET)
 
         if form.is_valid():
-            return self.queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
+            return self.queryset.filter(name__icontains=form.cleaned_data["name"])
 
         return self.queryset
 
