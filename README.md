@@ -68,5 +68,7 @@ You can use the user below to look at how it works:
 >The following environment variables should be set in the `.env` file:
 
 - `DJANGO_SECRET_KEY`: Your Django secret key
+- `DATABASE_URL`: Your database url
+- `DJANGO_DEBUG`: Enable or disable debug mode
 
 **Note:** Before starting the project, make a copy of the `.env_sample` file and rename it to `.env`. Replace the sample values with your actual environment variable values.
