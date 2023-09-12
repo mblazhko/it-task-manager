@@ -1,13 +1,13 @@
-# Task Manager
+# TaskJet
 
-Task Manager is a web application built with Django that allows you to manage projects,
+TaskJet is a web application built with Django that allows you to manage projects,
 teams, employees, tasks, positions, and task types.
 It provides a user-friendly interface for organizing and tracking tasks within an organization or team.
 
 ---
 ## Check it!
 
-[IT Task Manager deployed to render](https://it-task-manager-i4an.onrender.com)
+[TaskJet deployed to render](https://it-task-manager-i4an.onrender.com)
 
 You can use the user below to look at how it works:
    
